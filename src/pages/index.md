@@ -14,7 +14,7 @@ You can include an atomic component like so:
 
 ```js
 <script>
-component_docs("button");
+component("button", true);
 </script>
 ```
 
@@ -26,14 +26,14 @@ And it will render both the HTML markup and the code to produce it, taken straig
 <button class="btn">Click</button>
 ```
 
-> **N.B. We will use the JS function `component` to add components to real pages**
+> **N.B. Use the JS function `component` without the final argument _true_ to add components to real pages (true adds the component a second time as markup)**
 
 
 To add additional information, pass parameters to the component call:
 
 ```js
 <script>
-component_docs("button", { "type": "warning", "text": "Help" });
+component("button", { "type": "warning", "text": "Help" }, true);
 </script>
 ```
 
@@ -49,13 +49,13 @@ More complex components (molecules) which combine atoms, will be pre-rendered fr
 
 ```js
 <script>
-component_docs("button-group", {
+component("button-group", {
 	"buttons": [
 		{ "text": "Back" }
 		{ "type": "warning", "text": "Help", "icon-after": "help" }
 		{ "text": "Next" }
 	]
-});
+}, true);
 </script>
 ```
 

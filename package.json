@@ -1,0 +1,15 @@
+{
+  "name": "Documentation",
+  "version": "0.0.1",
+  "author": {
+    "name": "Chris Marsh",
+    "email": "chris.marsh@york.ac.uk"
+  },
+  "devDependencies": {
+    "diveSync": "^0.2.1",
+    "grunt": "^0.4.5",
+    "handlebars": "^2.0.0",
+    "marked": "^0.3.3",
+    "yaml-front-matter": "^3.2.3"
+  }
+}

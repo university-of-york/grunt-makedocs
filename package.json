@@ -6,6 +6,7 @@
     "email": "chris.marsh@york.ac.uk"
   },
   "devDependencies": {
+    "cheerio": "^0.18.0",
     "diveSync": "^0.2.1",
     "grunt": "^0.4.5",
     "handlebars": "^2.0.0",

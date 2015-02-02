@@ -13,12 +13,13 @@ module.exports = function(grunt) {
 
     var yfm = require('yaml-front-matter');
     var diveSync = require('diveSync');
+    var cheerio = require('cheerio');
     var marked = require('marked');
     var path = require('path');
-    var cheerio = require('cheerio');
+    var vm = require('vm');
     var fs = require('fs');
     var Handlebars = require('handlebars');
-    var Component = require('../src/js/app/component.js');
+    var component = require('../src/js/app/component.js');
 
     // Set defaults in case these are't specified
     var options = this.options({
@@ -33,33 +34,36 @@ module.exports = function(grunt) {
       var layoutHTML = grunt.file.read(layoutPath);
       var template = Handlebars.compile(layoutHTML, { noEscape: true });
       var html = template(config);
+      // Better to precompile scripts into components instead of doing it at runtime
       addComponents(html, function(completeHTML) {
-        grunt.file.write(writePath, html);
+        grunt.file.write(writePath, completeHTML);
       });
     };
 
     // This is a horrible way to get the JS function calls
     var addComponents = function(html, onComplete) {
-      var completeHTML = html;
-      // Parse HTML for script tags
+      // Eval HTML
       var $ = cheerio.load(html);
+      // Get all the scripts
       var scripts = $('body script');
       // For each script, get the individual lines
       scripts.each(function(i, script) {
-        var r = '';
-        var content = script.children[0].data.split('\n').filter(function(c) {
-          if (c === '') return false;
+        var scriptContent = '';
+        // Remove blank lines
+        script.children[0].data.split('\n').filter(function(l) {
+          if (l === '') return false;
           return true;
-        }).map(function(c) {
-          var componentText = c.match(/component\((.*)\)/i);
-          console.log(componentText[1]);
-          console.log(i+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        }).map(function(l) {
+          // Eval HTML in new context - pass component function into context
+          var ev = vm.runInNewContext(l, { component: component });
+          scriptContent+= ev+'\n';
         });
+        $(script).after(scriptContent).remove();
+        if (i === scripts.length - 1) {
+          onComplete($.html());
+        }
       });
-      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-      // new Component(1, 2, 3);
-      onComplete(completeHTML);
-    }
+    };
 
     // Set up partials
     var partialsPath = path.resolve(options.partialsDir);

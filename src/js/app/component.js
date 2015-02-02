@@ -29,6 +29,8 @@
 
     console.log(type, options, isDoc);
 
+    return '<button>'+options.text+'</button>';
+
     // get template from type
     // compile it with options
     // return HTML

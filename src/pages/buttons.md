@@ -4,51 +4,67 @@ title: Buttons
 name: buttons
 category: Components
 layout: default
-id: buttons
+id: buttons-page
 
 ---
 
-# Buttons
+# Lots of Buttons
 
 Buttons come in four different types and three different sizes. Usually a `button` element should be used, although an `a`, an `input[type=button]`, an `input[type=reset]` or an `input[type=submit]` could be used.
 
 The simplest is just a plain button:
 
 <script>
-component("button", { "text": "Click me" }, true);
-component("button-link", { "text": "Go here", "href": "http://google.com" }, true);
-component("button-input", { "text": "Send" }, true);
-component("button-reset", { "text": "Reset" }, true);
-component("button-submit", { "text": "Submit" }, true);
+component("button", { "text": "Click me" });
+component("button-link", { "text": "Go here", "href": "http://google.com" });
+component("button-input", { "text": "Send" });
+component("button-reset", { "text": "Reset" });
+component("button-submit", { "text": "Submit" });
 </script>
 
 Other types are _cancel_, _primary_ and _highlight_:
 
 <script>
-component("button", { "text": "Cancel", "type": "cancel" }, true);
-component("button", { "text": "Click this!", "type": "primary" }, true);
-component("button", { "text": "Or this", "type": "highlight" }, true);
+component("button", { "text": "Cancel", "type": "cancel" });
+component("button", { "text": "Click this!", "type": "primary" });
+component("button", { "text": "Or this", "type": "highlight" });
 </script>
 
 You can define the size of the button too:
 
 <script>
-component("button", { "text": "Tiny button", "size": "tiny" }, true);
-component("button", { "text": "Small button", "size": "small" }, true);
-component("button", { "text": "Medium button", "size": "medium" }, true);
-component("button", { "text": "Large button", "size": "large" }, true);
-component("button", { "text": "Huge button", "size": "huge" }, true);
+component("button", { "text": "Tiny button", "size": "tiny" });
+component("button", { "text": "Small button", "size": "small" });
+component("button", { "text": "Medium button", "size": "medium" });
+component("button", { "text": "Large button", "size": "large" });
+component("button", { "text": "Huge button", "size": "huge" });
 </script>
 
 It's also easy to add an icon to a button, either at the front, the end, or both (which doesn't look good, so don't do it).
 
 <script>
-component("button", { "text": "Help", "icon-before": "help" }, true);
-component("button", { "text": "Info", "icon-after": "info" }, true);
-component("button", { "text": "Please don't", "icon-before": "mobile", "icon-after": "tick" }, true);
+component("button", { "text": "Help", "icon-before": "help" });
+component("button", { "text": "Info", "icon-after": "info" });
+component("button", { "text": "Please don't", "icon-before": "mobile", "icon-after": "tick" });
+</script>
+
+You can join this all together to make a monster button:
+
+<script>
+component("button", { "text": "Oh gosh", "icon-after": "tick", "size": "large", "type": "warning" });
 </script>
 
 ## Button groups
+
+You can combine buttons together in a `btn-group`. This will join the buttons together seamlessly.
+
+<script>
+component("button-group", { atoms: [
+	{ "button": { "text": "Back" } },
+	{ "button": { "type": "warning", "text": "Help", "icon-after": "help" } },
+	{ "button": { "text": "Next" } }
+]});
+</script>
 
 ## Complete options
 
@@ -61,17 +77,14 @@ component("button", { "text": "Please don't", "icon-before": "mobile", "icon-aft
 
 ### Options
 
-#### Required:
-**text**: the text on the button
+#### Required
 
-#### Optional:
+* **text**: the text on the button
 
-**type**: one of _default_ (default), _cancel_, _primary_ and _highlight_
+#### Optional
 
-**size**: one of _tiny_, _small_, _medium_ (default), _large_ or _huge_
-
-**icon-before**: the type of [icon](icons) to appear at the front of the button (doesn't work with input[type=submit] or input[type=button])
-
-**icon-after**: the type of [icon](icons) to appear at the end of the button (doesn't work with input[type=submit] or input[type=button])
-
-**href**: the URL to visit when clicked (only for button-link, defaults to "#")
+* **type**: one of _default_ (default), _cancel_, _primary_ and _highlight_
+* **size**: one of _tiny_, _small_, _medium_ (default), _large_ or _huge_
+* **icon-before**: the type of [icon](icons) to appear at the front of the button (doesn't work with input[type=submit] or input[type=button])
+* **icon-after**: the type of [icon](icons) to appear at the end of the button (doesn't work with input[type=submit] or input[type=button])
+* **href**: the URL to visit when clicked (only for button-link, defaults to "#")

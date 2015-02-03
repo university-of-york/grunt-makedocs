@@ -1,11 +1,36 @@
+/*
+ * grunt-makedocs
+ * https://github.com/chris5marsh/makedocs
+ *
+ * Copyright (c) 2015 Chris Marsh
+ * Licensed under the MIT license.
+ */
+
+'use strict';
+
 module.exports = function(grunt) {
 
+  // Project configuration.
   grunt.initConfig({
+    jshint: {
+      all: [
+        'Gruntfile.js',
+        'tasks/*.js',
+        '<%= nodeunit.tests %>'
+      ],
+      options: {
+        jshintrc: '.jshintrc'
+      }
+    },
 
-    pkg: grunt.file.readJSON('package.json'),
+    // Before generating any new files, remove any previously-created files.
+    clean: {
+      tests: ['tmp']
+    },
 
+    // Configuration to be run (and then tested).
     makedocs: {
-      docs: {
+      default_options: {
         options: {
           layoutsDir: 'src/layouts',
           partialsDir: 'src/partials',
@@ -21,12 +46,28 @@ module.exports = function(grunt) {
           }
         ]
       }
+    },
+
+    // Unit tests.
+    nodeunit: {
+      tests: ['test/*_test.js']
     }
 
   });
 
-  grunt.task.loadTasks('tasks')
+  // Actually load this plugin's task(s).
+  grunt.loadTasks('tasks');
 
-  grunt.registerTask('default', ['makedocs']);
+  // These plugins provide necessary tasks.
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+
+  // Whenever the "test" task is run, first clean the "tmp" dir, then run this
+  // plugin's task(s), then test the result.
+  grunt.registerTask('test', ['clean', 'makedocs', 'nodeunit']);
+
+  // By default, lint and run all tests.
+  grunt.registerTask('default', ['jshint', 'test']);
 
 };

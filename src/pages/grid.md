@@ -8,6 +8,6 @@ id: grid
 
 ---
 
-# Grid
+# Grid Layout
 
 Here's how the grid layout works.

@@ -2,6 +2,9 @@
 
 > Create documentation for your design patterns whilst keeping your components completely separate. It uses Markdown for the page content and Mustache for the templates.
 
+> N.B. Tests have not been set up for this plugin yet.
+> It is a new plugin that is still being tweaked. Use it at your own risk.
+
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
 
@@ -43,23 +46,17 @@ There are three options you can define:
 Type: `String`
 Default value: `'./layouts'`
 
-#### Layouts
-
 The `layouts` directory holds Mustache templates for the pages to use. You can use any of the config that you set out in the YAML front matter. Simple!
 
 #### options.partialsDir
 Type: `String`
 Default value: `'./partials'`
 
-#### Partials
-
 The `partials` directory holds Mustache partials. The `makedocs` task read this directory (and any subdirectories) and creates Mustache partials for use within your `layout` templates. Useful for including a common header, footer or menu.
 
 #### options.componentsDir
 Type: `String`
 Default value: `'./components'`
-
-#### Components
 
 Finally, the `components` directory. This pretty much mirrors my `sass` directory, as each of my `.scss` files usually maps on to a single component.
 
@@ -69,7 +66,7 @@ Each of the Mustache templates in here is the markup for a single component. For
 <button class="btn btn-TYPE btn-SIZE">BUTTON TEXT<i class="icon-ICON"></i></button>
 ```
 
-I have a few different TYPES of buttons and a couple of different SIZEs, and there's an optional icon that can go before or after the button text.
+I have a few different TYPES of buttons and a couple of different SIZEs, and there's an optional ICON that can go before or after the button text.
 
 This is put in to a Mustache template as follows:
 

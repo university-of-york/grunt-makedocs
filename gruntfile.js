@@ -34,7 +34,8 @@ module.exports = function(grunt) {
         options: {
           layoutsDir: 'src/layouts',
           partialsDir: 'src/partials',
-          componentsDir: 'src/components'
+          componentsDir: 'src/components',
+          build: true
         },
         files: [
           {

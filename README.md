@@ -40,7 +40,13 @@ grunt.initConfig({
 
 ### Options
 
-There are three options you can define:
+There are four options you can define:
+
+#### options.build
+Type: `Boolean`
+Default value: `false`
+
+Passes a `build` value through to the templates, which can be used to include/omit things for a development/live environment. (Currently used to call minified versions of CSS etc.).
 
 #### options.layoutsDir
 Type: `String`

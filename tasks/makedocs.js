@@ -12,6 +12,8 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('makedocs', "Make your documentation using Grunt", function() {
 
+    console.log(this.target);
+
     var yfm = require('yaml-front-matter');
     var diveSync = require('diveSync');
     var cheerio = require('cheerio');
@@ -24,7 +26,8 @@ module.exports = function(grunt) {
     var options = this.options({
       layoutsDir: './layouts',
       partialsDir: './partials',
-      componentsDir: './components'
+      componentsDir: './components',
+      build: false
     });
 
     var templates = {};
@@ -54,7 +57,7 @@ module.exports = function(grunt) {
 
       return html;
 
-    };
+    }
 
     function MAKEDOCS(task) {
 
@@ -80,10 +83,13 @@ module.exports = function(grunt) {
             // Read and return the file's YAML front-matter
             var contents = grunt.file.read(filepath);
             var config = yfm.loadFront(contents);
-            if (typeof config.layout === 'undefined') config.layout = 'default';
+            if (typeof config.layout === 'undefined') {
+              config.layout = 'default';
+            }
             config.content = marked(config['__content'], { langPrefix:'language'});
             delete config['__content'];
             config.dest = file.dest;
+            config.build = options.build;
             this.makeLayout(config);
           }, this);
 
@@ -121,7 +127,9 @@ module.exports = function(grunt) {
         var html = template(config);
         // Better to precompile scripts into components instead of doing it at runtime
         this.addComponents(html, function(err, completeHTML) {
-          if (err) grunt.log.warn('Could add components');
+          if (err) {
+            grunt.log.warn('Could add components');
+          }
           grunt.file.write(writePath, completeHTML);
         });
 
@@ -144,11 +152,16 @@ module.exports = function(grunt) {
           var docContent = '<pre><code class="lang-html">';
           // Remove blank lines
           script.children[0].data.split(';').filter(function(l) {
-            return l != false;
+            if (l === '' || l === null || l === false) {
+              return false;
+            }
+            return true;
           }).map(function(l) {
             // Eval HTML in new context - pass component function into context
             var ev = vm.runInNewContext(l, { component: component });
-            if (typeof ev === 'undefined') return;
+            if (typeof ev === 'undefined') {
+              return;
+            }
             scriptContent+= '\n'+ev;
             docContent+= '\n'+htmlEntities(ev);
           });
@@ -163,9 +176,9 @@ module.exports = function(grunt) {
 
       this.htmlEntities = function(str) {
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-      }
+      };
 
-    };
+    }
 
     var makedocs = new MAKEDOCS(this);
     makedocs.run();

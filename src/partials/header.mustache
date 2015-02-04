@@ -19,11 +19,12 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="canonical" href="">
 
+  {{#build}}
+  <link rel="stylesheet" href="css/styles.min.css">
+  {{/build}}
+  {{^build}}
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/docs.css">
-
-  <script src="js/vendor/modernizr/modernizr.js"></script>
-  <script src="js/vendor/requirejs/require.js" data-main="js/app"></script>
+  {{/build}}
 
 </head>
 

@@ -12,8 +12,6 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('makedocs', "Make your documentation using Grunt", function() {
 
-    console.log(this.target);
-
     var yfm = require('yaml-front-matter');
     var diveSync = require('diveSync');
     var cheerio = require('cheerio');
@@ -131,6 +129,7 @@ module.exports = function(grunt) {
             grunt.log.warn('Could add components');
           }
           grunt.file.write(writePath, completeHTML);
+          grunt.log.ok("Wrote file to " + writePath);
         });
 
       };
@@ -151,22 +150,24 @@ module.exports = function(grunt) {
           // If we're doing documentation
           var docContent = '<pre><code class="lang-html">';
           // Remove blank lines
-          script.children[0].data.split(';').filter(function(l) {
-            if (l === '' || l === null || l === false) {
-              return false;
-            }
-            return true;
-          }).map(function(l) {
-            // Eval HTML in new context - pass component function into context
-            var ev = vm.runInNewContext(l, { component: component });
-            if (typeof ev === 'undefined') {
-              return;
-            }
-            scriptContent+= '\n'+ev;
-            docContent+= '\n'+htmlEntities(ev);
-          });
-          docContent+= '\n</code></pre>';
-          $(script).after('\n\n'+docContent).after(scriptContent).remove();
+          if (script.children.length !== 0) {
+            script.children[0].data.split(';').filter(function(l) {
+              if (l === '' || l === null || l === false) {
+                return false;
+              }
+              return true;
+            }).map(function(l) {
+              // Eval HTML in new context - pass component function into context
+              var ev = vm.runInNewContext(l, { component: component });
+              if (typeof ev === 'undefined') {
+                return;
+              }
+              scriptContent+= '\n'+ev;
+              docContent+= '\n'+htmlEntities(ev);
+            });
+            docContent+= '\n</code></pre>';
+            $(script).after('\n\n'+docContent).after(scriptContent).remove();
+          }
           if (i === scripts.length - 1) {
             onComplete(null, $.html());
           }

@@ -25,7 +25,8 @@ module.exports = function(grunt) {
       layoutsDir: './layouts',
       partialsDir: './partials',
       componentsDir: './components',
-      build: false
+      build: false,
+      nav: false
     });
 
     var templates = {};
@@ -61,6 +62,7 @@ module.exports = function(grunt) {
 
       this.task = task;
       this.templates = {};
+      this.pages = [];
 
       this.run = function() {
 
@@ -86,11 +88,24 @@ module.exports = function(grunt) {
             }
             config.content = marked(config['__content'], { langPrefix:'language'});
             delete config['__content'];
-            config.dest = file.dest;
+            // Get filename from 'name', or from dest
+            var filename = config.name || path.basename(file.dest, path.extname(file.dest));
+            config.dest = path.join(path.dirname(file.dest), filename+path.extname(file.dest));
+            console.log(config.dest);
             config.build = options.build;
-            this.makeLayout(config);
+            this.pages.push(config)
           }, this);
 
+        }, this);
+
+        // Set up nav if needed
+        if (options.nav && typeof options.nav === 'function') {
+          options.nav(this.pages);
+        }
+
+        // Make all the pages
+        this.pages.forEach(function(page, i) {
+          this.makeLayout(page);
         }, this);
 
       };
@@ -126,7 +141,7 @@ module.exports = function(grunt) {
         // Better to precompile scripts into components instead of doing it at runtime
         this.addComponents(html, function(err, completeHTML) {
           if (err) {
-            grunt.log.warn('Could add components');
+            grunt.log.warn('Could not add components');
           }
           grunt.file.write(writePath, completeHTML);
           grunt.log.ok("Wrote file to " + writePath);

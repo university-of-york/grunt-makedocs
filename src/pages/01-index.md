@@ -2,7 +2,7 @@
 
 title: Homepage
 name: index
-category: Components
+category: false
 layout: default
 id: homepage
 
@@ -62,7 +62,7 @@ Alternatively, the atoms array can be an object with a `"component"` key and an 
 ```js
 <script>
 component("button-group", { atoms: [
-	{ 
+	{
 		"component": "button",
 		"options": { "text": "Back" }
 	},

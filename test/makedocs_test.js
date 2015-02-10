@@ -27,22 +27,32 @@ exports.makedocs = {
     // setup here if necessary
     done();
   },
-  default_options: function(test) {
+  index: function(test) {
     test.expect(1);
 
-    var actual = grunt.file.read('tmp/default_options');
-    var expected = grunt.file.read('test/expected/default_options');
-    test.equal(actual, expected, 'should describe what the default behavior is.');
+    var actual = grunt.file.read('docs/index.html');
+    var expected = grunt.file.read('test/expected/index.html');
+    test.equal(actual, expected, 'The index.html file has not been created properly');
 
     test.done();
   },
-  custom_options: function(test) {
+  buttons: function(test) {
     test.expect(1);
 
-    var actual = grunt.file.read('tmp/custom_options');
-    var expected = grunt.file.read('test/expected/custom_options');
-    test.equal(actual, expected, 'should describe what the custom option(s) behavior is.');
+    var actual = grunt.file.read('docs/buttons.html');
+    var expected = grunt.file.read('test/expected/buttons.html');
+    test.equal(actual, expected, 'The buttons.html file has not been created properly');
 
     test.done();
   },
+  grid: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('docs/grid.html');
+    var expected = grunt.file.read('test/expected/grid.html');
+    test.equal(actual, expected, 'The grid.html file has not been created properly');
+
+    test.done();
+  }
+
 };

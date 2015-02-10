@@ -29,7 +29,7 @@
   "dependencies": {
     "bluebird": "^2.9.7",
     "cheerio": "^0.18.0",
-    "diveSync": "git://github.com/chris5marsh/node-diveSync.git",
+    "diveSync": "^0.3.0",
     "handlebars": "^2.0.0",
     "marked": "^0.3.3",
     "yaml-front-matter": "^3.2.3"

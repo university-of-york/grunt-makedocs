@@ -2,9 +2,6 @@
 
 > Create documentation for your design patterns whilst keeping your components completely separate. It uses Markdown for the page content and Mustache for the templates.
 
-> N.B. Tests have not been set up for this plugin yet.
-> It is a new plugin that is still being tweaked. Use it at your own risk.
-
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
 

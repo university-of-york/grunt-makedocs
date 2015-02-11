@@ -94,7 +94,7 @@ module.exports = function(grunt) {
             config.dest = path.join(path.dirname(file.dest), filename+path.extname(file.dest));
             console.log(config.dest);
             config.build = options.build;
-            this.pages.push(config)
+            this.pages.push(config);
           }, this);
 
         }, this);

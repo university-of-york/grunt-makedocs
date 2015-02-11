@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['tmp']
+      tests: ['docs']
     },
 
     // Configuration to be run (and then tested).
@@ -39,42 +39,13 @@ module.exports = function(grunt) {
           componentsDir: 'src/components',
           build: true,
           nav: function(pages) {
-            var navPage = "src/partials/nav.mustache";
-            var categories = {};
+            var navPage = "partials/nav.html";
+            var output = '<ul>';
             pages.forEach(function(page, i) {
-              if (page.category === false) {
-                // Top level page
-                categories[page.name] = page;
-              } else {
-                if (typeof categories[page.category] === 'undefined') {
-                  categories[page.category] = [];
-                }
-                categories[page.category].push(page);
-              }
-              if (i === pages.length - 1) {
-                var output = '<ul>\n';
-                for (var c in categories) {
-                  // Top level pages have a 'false' category value
-                  if (categories[c].category === false) {
-                    output+= '  <li><a href="'+path.basename(categories[c].dest)+'">'+categories[c].title+'</a></li>\n';
-                  } else {
-                    output+= '  <li>\n';
-                    output+= '    <a href="#">'+c+'</a>\n';
-                    output+= '    <ul>\n';
-                    // Loop through category pages
-                    categories[c].forEach(function(j, p) {
-                      var thisPage = categories[c][p];
-                      output+= '      <li><a href="'+path.basename(thisPage.dest)+'">'+thisPage.title+'</a></li>\n';
-                    });
-                    output+= '    </ul>\n';
-                    output+= '  </li>\n';
-                  }
-                }
-                output+= '</ul>\n';
-                grunt.file.write(navPage, output);
-
-              }
+              output+= '<li><a href="'+page.dest+'">'+page.title+'</a></li>';
             });
+            output+= '</ul>';
+            grunt.file.write(navPage, output);
           }
         },
         files: [

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Homepage :: Design Patterns</title>
+  <meta name="description" content="University of York Design Patterns">
+  <meta name="author" content="University of York">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:site_name" content="">
+  <meta property="og:description" content="">
+
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="canonical" href="">
+
+  <link rel="stylesheet" href="css/styles.min.css">
+
+</head>
+
+<body id="homepage">
+<ul>
+  <li><a href="index.html">Homepage</a></li>
+  <li>
+    <a href="#">Components</a>
+    <ul>
+      <li><a href="buttons.html">Buttons</a></li>
+    </ul>
+  </li>
+  <li>
+    <a href="#">Layout</a>
+    <ul>
+      <li><a href="grid.html">Grid</a></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="default">
+
+<p>This is an example of how the documentation pages would work.</p>
+<p>You can include an atomic component like so:</p>
+<pre><code class="languagejs">&lt;script&gt;
+component(&quot;button&quot;);
+&lt;/script&gt;
+</code></pre>
+<p>And it will render both the HTML markup and the code to produce it, taken straight from the <em>components/button.html</em> source.</p>
+<button class="btn">Click</button>
+
+<pre><code class="languagehtml">&lt;button class=&quot;btn&quot;&gt;Click&lt;/button&gt;
+</code></pre>
+<blockquote>
+<p><strong>N.B. Use the JS function <code>component</code> without the final argument <em>true</em> to add components to real pages (true adds the component a second time as markup)</strong></p>
+</blockquote>
+<p>To add additional information, pass parameters to the component call:</p>
+<pre><code class="languagejs">&lt;script&gt;
+component(&quot;button&quot;, { &quot;type&quot;: &quot;warning&quot;, &quot;text&quot;: &quot;Help&quot; });
+&lt;/script&gt;
+</code></pre>
+<p>This would render:</p>
+<button class="btn btn-warning">Help</button>
+
+<pre><code class="languagehtml">&lt;button class=&quot;btn btn-warning&quot;&gt;Help&lt;/button&gt;
+</code></pre>
+<p>More complex components (molecules) which combine atoms, will be pre-rendered from passed-through <code>atoms</code> array. The atoms can be an array of simple objects with <code>&quot;component-name&quot;: &quot;options-object&quot;</code>.</p>
+<pre><code class="languagejs">&lt;script&gt;
+component(&quot;button-group&quot;, { atoms: [
+    { &quot;button&quot;: { &quot;text&quot;: &quot;Back&quot; } },
+    { &quot;button&quot;: { &quot;type&quot;: &quot;warning&quot;, &quot;text&quot;: &quot;Help&quot;, &quot;icon-after&quot;: &quot;help&quot; } },
+    { &quot;button&quot;: { &quot;text&quot;: &quot;Next&quot; } }
+]});
+&lt;/script&gt;
+</code></pre>
+<p>Alternatively, the atoms array can be an object with a <code>&quot;component&quot;</code> key and an <code>&quot;options&quot;</code> key. This can be useful if you need to pass through several different types of component:</p>
+<pre><code class="languagejs">&lt;script&gt;
+component(&quot;button-group&quot;, { atoms: [
+    {
+        &quot;component&quot;: &quot;button&quot;,
+        &quot;options&quot;: { &quot;text&quot;: &quot;Back&quot; }
+    },
+    {
+        &quot;component&quot;: &quot;button&quot;,
+        &quot;options&quot;: { &quot;type&quot;: &quot;warning&quot;, &quot;text&quot;: &quot;Help&quot;, &quot;icon-after&quot;: &quot;help&quot; }
+    },
+    {
+        &quot;component&quot;: &quot;button&quot;,
+        &quot;options&quot;: { &quot;text&quot;: &quot;Next&quot; }
+    }
+]});
+&lt;/script&gt;
+</code></pre>
+<p>Both these examples would render the same code:</p>
+<div class="btn-group">
+    <button class="btn">Back</button>
+    <button class="btn btn-warning">Help <i class="icon icon-help"></i></button>
+    <button class="btn">Next</button>
+</div>
+
+<pre><code class="languagehtml">&lt;div class=&quot;btn-group&quot;&gt;
+    &lt;button class=&quot;btn&quot;&gt;Back&lt;/button&gt;
+    &lt;button class=&quot;btn btn-warning&quot;&gt;Help &lt;i class=&quot;icon icon-help&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+    &lt;button class=&quot;btn&quot;&gt;Next&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+
+
+</div>
+
+
+
+</body>
+
+</html>

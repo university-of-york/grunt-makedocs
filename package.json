@@ -27,7 +27,6 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "bluebird": "^2.9.7",
     "cheerio": "^0.18.0",
     "diveSync": "git://github.com/chris5marsh/node-diveSync.git",
     "handlebars": "^2.0.0",

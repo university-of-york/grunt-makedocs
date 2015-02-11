@@ -45,6 +45,7 @@ module.exports = function(grunt) {
           // } else {
           var c = Object.keys(atom)[0];
           var o = atom[c];
+          o.parentConfig = config;
           var atomHTML = component(c, o);
           config.atoms[i] = atomHTML;
           // }

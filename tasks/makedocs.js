@@ -158,14 +158,16 @@ module.exports = function(grunt) {
         // Get all the scripts
         var scripts = $('body script');
         var htmlEntities = this.htmlEntities;
+        var beautifyOptions = {
+          "indent_size": 2,
+          "indent_char": " "
+        }
         // For each script, get the individual lines
         if (scripts.length === 0) {
           onComplete(null, html);
         }
         scripts.each(function(i, script) {
           var scriptContent = '';
-          // If we're doing documentation
-          var docContent = '<pre><code class="lang-html">';
           // Remove blank lines
           if (script.children.length !== 0) {
             script.children[0].data.split(';').filter(function(l) {
@@ -180,14 +182,13 @@ module.exports = function(grunt) {
                 return;
               }
               scriptContent+= '\n'+ev;
-              docContent+= '\n'+htmlEntities(ev);
             });
+            scriptContent = beautify(scriptContent, beautifyOptions);
+            // If we're doing documentation
+            var docContent = '<pre><code class="lang-html">';
+            docContent+= htmlEntities(scriptContent);
             docContent+= '\n</code></pre>';
-            var beautifyOptions = {
-              "indent_size": 2,
-              "indent_char": " "
-            }
-            $(script).after('\n\n'+beautify(docContent, beautifyOptions)).after(beautify(scriptContent)).remove();
+            $(script).after('\n\n'+docContent).after(scriptContent).remove();
           }
           if (i === scripts.length - 1) {
             onComplete(null, $.html());

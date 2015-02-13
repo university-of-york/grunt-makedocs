@@ -39,25 +39,44 @@ module.exports = function(grunt) {
       var template = templates[type];
 
       // if config has an atoms key, compile those and replace atom object with HTML
-      if (typeof config.atoms !== 'undefined') {
-        config.atoms.forEach(function(atom, i) {
-          // if (typeof atom.component !== 'undefined') {
-          // TODO: can pass as object with "component" key and "options" key, or as "component": "options" object
-          // } else {
-          var c = Object.keys(atom)[0];
-          var o = atom[c];
+      var atomsType = toType(config.atoms);
+      if (atomsType !== 'undefined') {
+        if (atomsType === 'object') {
+          // Just a single atom
+          var c = Object.keys(config.atoms)[0];
+          var o = config.atoms[c];
           o.parentConfig = config;
           var atomHTML = component(c, o);
-          config.atoms[i] = atomHTML;
-          // }
-        });
+          config.atoms = [atomHTML];
+        } else if (atomsType === 'array') {
+          // Multiple atoms
+          config.atoms.forEach(function(atom, i) {
+            var c, o;
+            if (toType(atom.component) !== 'undefined') {
+              // object passed with "component" key and "options" key
+              c = atom.component;
+              o = atom.options;
+             } else {
+              // Shorthand { "component": "options" } object
+              c = Object.keys(atom)[0];
+              o = atom[c];
+            }
+            o.parentConfig = config;
+            var atomHTML = component(c, o);
+            config.atoms[i] = atomHTML;
+          });
+        }
       }
 
       // compile it with options
       var html = template(config);
-
       return html;
 
+    }
+
+    // https://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
+    var toType = function(obj) {
+      return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
     }
 
     function MAKEDOCS(task) {
@@ -88,12 +107,11 @@ module.exports = function(grunt) {
             if (typeof config.layout === 'undefined') {
               config.layout = 'default';
             }
-            config.content = marked(config['__content'], { langPrefix:'language'});
+            config.content = marked(config['__content']);
             delete config['__content'];
             // Get filename from 'name', or from dest
             var filename = config.name || path.basename(file.dest, path.extname(file.dest));
             config.dest = path.join(path.dirname(file.dest), filename+path.extname(file.dest));
-            console.log(config.dest);
             config.build = options.build;
             this.pages.push(config);
           }, this);
@@ -185,10 +203,10 @@ module.exports = function(grunt) {
             });
             scriptContent = beautify(scriptContent, beautifyOptions);
             // If we're doing documentation
-            var docContent = '<pre><code class="lang-html">';
+            var docContent = '<pre><code class="language-markup">';
             docContent+= htmlEntities(scriptContent);
             docContent+= '\n</code></pre>';
-            $(script).after('\n\n'+docContent).after(scriptContent).remove();
+            $(script).after('\n\n'+docContent).after('\n\n'+scriptContent).remove();
           }
           if (i === scripts.length - 1) {
             onComplete(null, $.html());

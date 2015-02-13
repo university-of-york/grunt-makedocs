@@ -12,6 +12,7 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('makedocs', "Make your documentation using Grunt", function() {
 
+    var beautify = require('js-beautify').html;
     var yfm = require('yaml-front-matter');
     var diveSync = require('diveSync');
     var cheerio = require('cheerio');
@@ -182,7 +183,11 @@ module.exports = function(grunt) {
               docContent+= '\n'+htmlEntities(ev);
             });
             docContent+= '\n</code></pre>';
-            $(script).after('\n\n'+docContent).after(scriptContent).remove();
+            var beautifyOptions = {
+              "indent_size": 2,
+              "indent_char": " "
+            }
+            $(script).after('\n\n'+beautify(docContent, beautifyOptions)).after(beautify(scriptContent)).remove();
           }
           if (i === scripts.length - 1) {
             onComplete(null, $.html());

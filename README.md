@@ -105,7 +105,6 @@ At the top of each Markdown page is a YAML front matter section.
 ---
 
 title: Homepage
-name: index
 category: Components
 layout: default
 id: homepage
@@ -114,8 +113,6 @@ id: homepage
 ```
 
 The important thing to put in here is _layout_. This chooses which of the templates in the layout directory you want to use to render your page. If you leave it blank , it will look for one called `default.mustache`.
-
-The `name` option will be the file name of your finished file. This allows you to call the page template whatever you like and give the completed file a sensible name. This is useful for ordering your pages, as the files are processed alphabetically.
 
 The other options are passed to the Mustache template. In my example I'm using {{title}} as the page title and {{id}} as an `id` attribute on the `body` tag.
 

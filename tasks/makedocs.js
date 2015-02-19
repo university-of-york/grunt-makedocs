@@ -38,6 +38,12 @@ module.exports = function(grunt) {
 
       var template = templates[type];
 
+      // if config is just a string, it's simple content
+      var configType = toType(config);
+      if (configType === 'string') {
+        config = { "content": config };
+      }
+
       // if config has an atoms key, compile those and replace atom object with HTML
       var atomsType = toType(config.atoms);
       if (atomsType !== 'undefined') {
@@ -109,9 +115,7 @@ module.exports = function(grunt) {
             }
             config.content = marked(config['__content']);
             delete config['__content'];
-            // Get filename from 'name', or from dest
-            var filename = config.name || path.basename(file.dest, path.extname(file.dest));
-            config.dest = path.join(path.dirname(file.dest), filename+path.extname(file.dest));
+            config.dest = path.resolve(file.dest);
             config.build = options.build;
             this.pages.push(config);
           }, this);

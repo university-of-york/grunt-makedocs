@@ -176,7 +176,7 @@ module.exports = function(grunt) {
       // This is a horrible way to get the JS function calls
       this.addComponents = function(html, onComplete) {
 
-        var $ = cheerio.load(html);
+        var $ = cheerio.load(html, { decodeEntities: false });
         // Get all the scripts
         var scripts = $('body script');
         var htmlEntities = this.htmlEntities;

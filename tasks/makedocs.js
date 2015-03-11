@@ -46,6 +46,7 @@ module.exports = function(grunt) {
 
       // if config has an atoms key, compile those and replace atom object with HTML
       var atomsType = toType(config.atoms);
+      var atomHTML;
       if (atomsType !== 'undefined') {
         if (atomsType === 'object') {
           // Just a single atom

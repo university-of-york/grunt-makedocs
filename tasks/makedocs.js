@@ -173,7 +173,7 @@ module.exports = function(grunt) {
 
       };
 
-      // This is a horrible way to get the JS function calls
+      // This is a hacky way to get the JS function calls
       this.addComponents = function(html, onComplete) {
 
         var $ = cheerio.load(html, { decodeEntities: false });
@@ -189,32 +189,31 @@ module.exports = function(grunt) {
           onComplete(null, html);
         }
         scripts.each(function(i, script) {
-          var scriptContent = '';
-          // Remove blank lines
+
+          // Safe eval()
           if (script.children.length !== 0) {
-            script.children[0].data.split(';').filter(function(l) {
-              if (l === '' || l === null || l === false) {
-                return false;
-              }
-              return true;
-            }).map(function(l) {
-              // Eval HTML in new context - pass component function into context
-              var ev = vm.runInNewContext(l, { component: component });
-              if (typeof ev === 'undefined') {
-                return;
-              }
-              scriptContent+= '\n'+ev;
-            });
-            scriptContent = beautify(scriptContent, beautifyOptions);
+
+            var ev = vm.runInNewContext(script.children[0].data, { component: component });
+
+            if (typeof ev === 'undefined') {
+              return;
+            }
+
+            var scriptContent = beautify(ev, beautifyOptions);
+
             // If we're doing documentation
             var docContent = '<pre><code class="language-markup">';
             docContent+= htmlEntities(scriptContent);
             docContent+= '\n</code></pre>';
+
             $(script).after('\n\n'+docContent).after('\n\n'+scriptContent).remove();
+
           }
+
           if (i === scripts.length - 1) {
             onComplete(null, $.html());
           }
+
         });
 
       };

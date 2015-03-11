@@ -38,10 +38,10 @@ grunt.initConfig({
 ### Options
 
 #### options.nav
-Type: `Boolean`
+Type: `function`
 Default value: `false`
 
-Pass through a function to build a navigation menu from the list of pages. The default is false, which does nothing. The function takes a single argument, which is the array of pages containing the details from the YAML front matter, plus a `dest` object (the URL the page will be built at) and a `content` object (the page content). A sample function would be:
+Pass through a function to build a navigation menu from the list of pages. The default is false, which does nothing. The function takes a single argument, which is the array of pages containing the details from the YAML front matter, plus a `dest` object (the URL the page will be built at) and a `content` object (the page content). A sample function to create an unordered list of links to pages could be:
 
 ```js
 function(pages) {
@@ -59,7 +59,8 @@ function(pages) {
 Type: `Boolean`
 Default value: `false`
 
-Passes a `build` value through to the templates, which can be used to include/omit things for a development/live environment. (Currently used to call minified versions of CSS etc.).
+Passes a `build` value through to the templates, which can be used to include/omit things for a development/live environment. (Currently used to switch between un-/minified versions of CSS etc.).
+
 
 #### options.layoutsDir
 Type: `String`
@@ -67,11 +68,13 @@ Default value: `'./layouts'`
 
 The `layouts` directory holds Mustache templates for the pages to use. You can use any of the config that you set out in the YAML front matter. Simple!
 
+
 #### options.partialsDir
 Type: `String`
 Default value: `'./partials'`
 
 The `partials` directory holds Mustache partials. The `makedocs` task read this directory (and any subdirectories) and creates Mustache partials for use within your `layout` templates. Useful for including a common header, footer or menu.
+
 
 #### options.componentsDir
 Type: `String`
@@ -112,7 +115,7 @@ id: homepage
 ---
 ```
 
-The important thing to put in here is _layout_. This chooses which of the templates in the layout directory you want to use to render your page. If you leave it blank , it will look for one called `default.mustache`.
+The important thing to put in here is _layout_. This chooses which of the templates in the layout directory you want to use to render your page. If you leave it blank, it will look for one called `default.mustache`.
 
 The other options are passed to the Mustache template. In my example I'm using {{title}} as the page title and {{id}} as an `id` attribute on the `body` tag.
 

@@ -52,23 +52,32 @@ module.exports = function(grunt) {
           var c = Object.keys(config.atoms)[0];
           var o = config.atoms[c];
           o.parentConfig = config;
-          var atomHTML = component(c, o);
+          atomHTML = component(c, o);
           config.atoms = [atomHTML];
         } else if (atomsType === 'array') {
           // Multiple atoms
           config.atoms.forEach(function(atom, i) {
             var c, o;
+            var t = toType(atom);
             if (toType(atom.component) !== 'undefined') {
               // object passed with "component" key and "options" key
               c = atom.component;
               o = atom.options;
+              o.parentConfig = config;
+              atomHTML = component(c, o);
+             } else if (t === 'string') {
+              // Using var that has already been parsed
+              console.log(t)
+              c = atom;
+              o = false;
+              atomHTML = atom;
              } else {
               // Shorthand { "component": "options" } object
               c = Object.keys(atom)[0];
               o = atom[c];
+              o.parentConfig = config;
+              atomHTML = component(c, o);
             }
-            o.parentConfig = config;
-            var atomHTML = component(c, o);
             config.atoms[i] = atomHTML;
           });
         }

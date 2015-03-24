@@ -21,6 +21,13 @@ module.exports = function(grunt) {
     var vm = require('vm');
     var fs = require('fs');
     var Handlebars = require('handlebars');
+    // Load and use polyfill for ECMA-402.
+    if (!global.Intl) {
+        global.Intl = require('intl');
+    }
+    var HandlebarsIntl = require('handlebars-intl');
+    // Register helpers for date/time helpers
+    HandlebarsIntl.registerWith(Handlebars);
 
     var options = this.options({
       layoutsDir: './layouts',
@@ -68,7 +75,6 @@ module.exports = function(grunt) {
               atomHTML = component(c, o);
              } else if (t === 'string') {
               // Using var that has already been parsed
-              console.log(t)
               c = atom;
               o = false;
               atomHTML = atom;

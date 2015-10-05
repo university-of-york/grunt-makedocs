@@ -37,6 +37,12 @@ module.exports = function(grunt) {
       nav: false
     });
 
+
+    // For internationalisation
+    var intlData = {
+      locales: ['en-GB']
+    };
+
     var templates = {};
 
     // Could move this out seperately? So that front and back end could use it?
@@ -91,7 +97,7 @@ module.exports = function(grunt) {
       }
 
       // compile it with options
-      var html = template(config);
+      var html = template(config, { data: { intl: intlData } });
       return html;
 
     }

@@ -65,7 +65,9 @@ module.exports = function(grunt) {
           // Just a single atom
           var c = Object.keys(config.atoms)[0];
           var o = config.atoms[c];
-          o.parentConfig = config;
+          if(toType(o) === 'object') {
+            o.parentConfig = config;
+          }
           atomHTML = component(c, o);
           config.atoms = [atomHTML];
         } else if (atomsType === 'array') {

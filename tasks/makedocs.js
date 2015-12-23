@@ -21,33 +21,8 @@ module.exports = function(grunt) {
     var vm = require('vm');
     var fs = require('fs');
     var Handlebars = require('handlebars');
-    // Load and use polyfill for ECMA-402.
-    if (!global.Intl) {
-        global.Intl = require('intl');
-    }
-    var HandlebarsIntl = require('handlebars-intl');
-    // Register helpers for date/time helpers
-    HandlebarsIntl.registerWith(Handlebars);
-
-    var options = this.options({
-      layoutsDir: './layouts',
-      partialsDir: './partials',
-      componentsDir: './components',
-      build: false,
-      nav: false
-    });
-
-
-    // For internationalisation
-    var intlData = {
-      locales: ['en-GB']
-    };
-
-    var templates = {};
-
-    // Could move this out seperately? So that front and back end could use it?
-    // Needs compiled Handlebars templates (OK), forEach and Object.keys
-    function component(type, config) {
+    //var component = require('./component')
+    var component = function(type, config) {
 
       var template = templates[type];
 
@@ -65,7 +40,7 @@ module.exports = function(grunt) {
           // Just a single atom
           var c = Object.keys(config.atoms)[0];
           var o = config.atoms[c];
-          if(toType(o) === 'object') {
+          if (toType(o) === 'object') {
             o.parentConfig = config;
           }
           atomHTML = component(c, o);
@@ -103,6 +78,28 @@ module.exports = function(grunt) {
       return html;
 
     }
+    // Load and use polyfill for ECMA-402.
+    if (!global.Intl) {
+        global.Intl = require('intl');
+    }
+    var HandlebarsIntl = require('handlebars-intl');
+    // Register helpers for date/time helpers
+    HandlebarsIntl.registerWith(Handlebars);
+
+    var options = this.options({
+      layoutsDir: './layouts',
+      partialsDir: './partials',
+      componentsDir: './components',
+      build: false,
+      nav: false
+    });
+
+    // For internationalisation
+    var intlData = {
+      locales: ['en-GB']
+    };
+
+    var templates = {};
 
     // https://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
     var toType = function(obj) {
@@ -120,8 +117,8 @@ module.exports = function(grunt) {
         this.setupPartials();
         this.setupComponents();
 
+        // Sort files into alpha order
         task.files.forEach(function(file) {
-
           file.src.filter(function(filepath) {
             // Remove nonexistent files
             if (!grunt.file.exists(filepath)) {
@@ -150,6 +147,7 @@ module.exports = function(grunt) {
         if (options.nav && typeof options.nav === 'function') {
           options.nav(this.pages);
         }
+
 
         // Make all the pages
         this.pages.forEach(function(page, i) {

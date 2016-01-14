@@ -22,7 +22,7 @@ And it will render both the HTML markup and the code to produce it, taken straig
 
 <button class="btn">Click</button>
 
-```html
+```markup
 <button class="btn">Click</button>
 ```
 
@@ -41,7 +41,7 @@ This would render:
 
 <button class="btn btn-warning">Help</button>
 
-```html
+```markup
 <button class="btn btn-warning">Help</button>
 ```
 
@@ -86,7 +86,7 @@ Both these examples would render the same code:
 	<button class="btn">Next</button>
 </div>
 
-```html
+```markup
 <div class="btn-group">
 	<button class="btn">Back</button>
 	<button class="btn btn-warning">Help <i class="icon icon-help"></i></button>

@@ -46,82 +46,64 @@
 <p>Buttons come in four different types and three different sizes. Usually a <code>button</code> element should be used, although an <code>a</code>, an <code>input[type=button]</code>, an <code>input[type=reset]</code> or an <code>input[type=submit]</code> could be used.</p>
 <p>The simplest is just a plain button:</p>
 
-<button class="btn">Click me</button>
-<a class="btn" href="http://google.com">Go here</a>
-<input type="button" class="btn" value="Send">
-<input type="reset" class="btn" value="Reset">
+
 <input type="submit" class="btn" value="Submit">
 
-<pre><code class="lang-html">
-&lt;button class=&quot;btn&quot;&gt;Click me&lt;/button&gt;
-&lt;a class=&quot;btn&quot; href=&quot;http://google.com&quot;&gt;Go here&lt;/a&gt;
-&lt;input type=&quot;button&quot; class=&quot;btn&quot; value=&quot;Send&quot;&gt;
-&lt;input type=&quot;reset&quot; class=&quot;btn&quot; value=&quot;Reset&quot;&gt;
-&lt;input type=&quot;submit&quot; class=&quot;btn&quot; value=&quot;Submit&quot;&gt;
+<pre><code class="language-markup">&lt;input type=&quot;submit&quot; class=&quot;btn&quot; value=&quot;Submit&quot;&gt;
 </code></pre>
 
 <p>Other types are <em>cancel</em>, <em>primary</em> and <em>highlight</em>:</p>
 
-<button class="btn btn-cancel">Cancel</button>
-<button class="btn btn-primary">Click this!</button>
+
 <button class="btn btn-highlight">Or this</button>
 
-<pre><code class="lang-html">
-&lt;button class=&quot;btn btn-cancel&quot;&gt;Cancel&lt;/button&gt;
-&lt;button class=&quot;btn btn-primary&quot;&gt;Click this!&lt;/button&gt;
-&lt;button class=&quot;btn btn-highlight&quot;&gt;Or this&lt;/button&gt;
+<pre><code class="language-markup">&lt;button class=&quot;btn btn-highlight&quot;&gt;Or this&lt;/button&gt;
 </code></pre>
 
 <p>You can define the size of the button too:</p>
 
-<button class="btn btn-tiny">Tiny button</button>
-<button class="btn btn-small">Small button</button>
-<button class="btn btn-medium">Medium button</button>
-<button class="btn btn-large">Large button</button>
+
 <button class="btn btn-huge">Huge button</button>
 
-<pre><code class="lang-html">
-&lt;button class=&quot;btn btn-tiny&quot;&gt;Tiny button&lt;/button&gt;
-&lt;button class=&quot;btn btn-small&quot;&gt;Small button&lt;/button&gt;
-&lt;button class=&quot;btn btn-medium&quot;&gt;Medium button&lt;/button&gt;
-&lt;button class=&quot;btn btn-large&quot;&gt;Large button&lt;/button&gt;
-&lt;button class=&quot;btn btn-huge&quot;&gt;Huge button&lt;/button&gt;
+<pre><code class="language-markup">&lt;button class=&quot;btn btn-huge&quot;&gt;Huge button&lt;/button&gt;
 </code></pre>
 
-<p>It&apos;s also easy to add an icon to a button, either at the front, the end, or both (which doesn&apos;t look good, so don&apos;t do it).</p>
+<p>It&#39;s also easy to add an icon to a button, either at the front, the end, or both (which doesn&#39;t look good, so don&#39;t do it).</p>
 
-<button class="btn"><i class="icon-help"></i>Help</button>
-<button class="btn">Info<i class="icon-info"></i></button>
-<button class="btn"><i class="icon-mobile"></i>Please don&apos;t<i class="icon-tick"></i></button>
 
-<pre><code class="lang-html">
-&lt;button class=&quot;btn&quot;&gt;&lt;i class=&quot;icon-help&quot;&gt;&lt;/i&gt;Help&lt;/button&gt;
-&lt;button class=&quot;btn&quot;&gt;Info&lt;i class=&quot;icon-info&quot;&gt;&lt;/i&gt;&lt;/button&gt;
-&lt;button class=&quot;btn&quot;&gt;&lt;i class=&quot;icon-mobile&quot;&gt;&lt;/i&gt;Please don&apos;t&lt;i class=&quot;icon-tick&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+<button class="btn"><i class="icon-mobile"></i>Please don't<i class="icon-tick"></i>
+</button>
+
+<pre><code class="language-markup">&lt;button class=&quot;btn&quot;&gt;&lt;i class=&quot;icon-mobile&quot;&gt;&lt;/i&gt;Please don't&lt;i class=&quot;icon-tick&quot;&gt;&lt;/i&gt;
+&lt;/button&gt;
 </code></pre>
 
 <p>You can join this all together to make a monster button:</p>
 
-<button class="btn btn-warning btn-large">Oh gosh<i class="icon-tick"></i></button>
 
-<pre><code class="lang-html">
-&lt;button class=&quot;btn btn-warning btn-large&quot;&gt;Oh gosh&lt;i class=&quot;icon-tick&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+<button class="btn btn-warning btn-large">Oh gosh<i class="icon-tick"></i>
+</button>
+
+<pre><code class="language-markup">&lt;button class=&quot;btn btn-warning btn-large&quot;&gt;Oh gosh&lt;i class=&quot;icon-tick&quot;&gt;&lt;/i&gt;
+&lt;/button&gt;
 </code></pre>
 
 <h2 id="button-groups">Button groups</h2>
 <p>You can combine buttons together in a <code>btn-group</code>. This will join the buttons together seamlessly.</p>
 
+
 <div class="btn-group">
-    <button class="btn">Back</button>
-    <button class="btn btn-warning">Help<i class="icon-help"></i></button>
-    <button class="btn">Next</button>
+  <button class="btn">Back</button>
+  <button class="btn btn-warning">Help<i class="icon-help"></i>
+  </button>
+  <button class="btn">Next</button>
 </div>
 
-<pre><code class="lang-html">
-&lt;div class=&quot;btn-group&quot;&gt;
-    &lt;button class=&quot;btn&quot;&gt;Back&lt;/button&gt;
-    &lt;button class=&quot;btn btn-warning&quot;&gt;Help&lt;i class=&quot;icon-help&quot;&gt;&lt;/i&gt;&lt;/button&gt;
-    &lt;button class=&quot;btn&quot;&gt;Next&lt;/button&gt;
+<pre><code class="language-markup">&lt;div class=&quot;btn-group&quot;&gt;
+  &lt;button class=&quot;btn&quot;&gt;Back&lt;/button&gt;
+  &lt;button class=&quot;btn btn-warning&quot;&gt;Help&lt;i class=&quot;icon-help&quot;&gt;&lt;/i&gt;
+  &lt;/button&gt;
+  &lt;button class=&quot;btn&quot;&gt;Next&lt;/button&gt;
 &lt;/div&gt;
 </code></pre>
 
@@ -142,8 +124,8 @@
 <ul>
 <li><strong>type</strong>: one of <em>default</em> (default), <em>cancel</em>, <em>primary</em> and <em>highlight</em></li>
 <li><strong>size</strong>: one of <em>tiny</em>, <em>small</em>, <em>medium</em> (default), <em>large</em> or <em>huge</em></li>
-<li><strong>icon-before</strong>: the type of <a href="icons">icon</a> to appear at the front of the button (doesn&apos;t work with input[type=submit] or input[type=button])</li>
-<li><strong>icon-after</strong>: the type of <a href="icons">icon</a> to appear at the end of the button (doesn&apos;t work with input[type=submit] or input[type=button])</li>
+<li><strong>icon-before</strong>: the type of <a href="icons">icon</a> to appear at the front of the button (doesn&#39;t work with input[type=submit] or input[type=button])</li>
+<li><strong>icon-after</strong>: the type of <a href="icons">icon</a> to appear at the end of the button (doesn&#39;t work with input[type=submit] or input[type=button])</li>
 <li><strong>href</strong>: the URL to visit when clicked (only for button-link, defaults to &quot;#&quot;)</li>
 </ul>
 
@@ -151,6 +133,7 @@
 </div>
 
 
+<script src="js/prism.js"></script>
 
 </body>
 

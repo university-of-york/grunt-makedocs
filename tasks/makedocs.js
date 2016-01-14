@@ -77,7 +77,7 @@ module.exports = function(grunt) {
       var html = template(config, { data: { intl: intlData } });
       return html;
 
-    }
+    };
     // Load and use polyfill for ECMA-402.
     if (!global.Intl) {
         global.Intl = require('intl');
@@ -104,7 +104,7 @@ module.exports = function(grunt) {
     // https://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
     var toType = function(obj) {
       return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
-    }
+    };
 
     function MAKEDOCS(task) {
 
@@ -154,7 +154,7 @@ module.exports = function(grunt) {
           this.makeLayout(page);
           pageCount++;
           if (i === p.length - 1) {
-            var pageWord = pageCount == 1 ? 'page' : 'pages';
+            var pageWord = pageCount === 1 ? 'page' : 'pages';
             grunt.log.ok('Wrote '+pageCount+' '+pageWord);
           }
         }, this);
@@ -211,7 +211,7 @@ module.exports = function(grunt) {
         var beautifyOptions = {
           "indent_size": 2,
           "indent_char": " "
-        }
+        };
         // For each script, get the individual lines
         if (scripts.length === 0) {
           onComplete(null, html);

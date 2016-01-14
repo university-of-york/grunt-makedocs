@@ -148,10 +148,15 @@ module.exports = function(grunt) {
           options.nav(this.pages);
         }
 
-
+        var pageCount = 0;
         // Make all the pages
-        this.pages.forEach(function(page, i) {
+        this.pages.forEach(function(page, i, p) {
           this.makeLayout(page);
+          pageCount++;
+          if (i === p.length - 1) {
+            var pageWord = pageCount == 1 ? 'page' : 'pages';
+            grunt.log.ok('Wrote '+pageCount+' '+pageWord);
+          }
         }, this);
 
       };
@@ -190,7 +195,8 @@ module.exports = function(grunt) {
             grunt.log.warn('Could not add components');
           }
           grunt.file.write(writePath, completeHTML);
-          grunt.log.ok("Wrote file to " + writePath);
+          // Only log if verbose
+          grunt.verbose.ok("Wrote file to " + writePath);
         });
 
       };

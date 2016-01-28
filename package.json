@@ -14,12 +14,7 @@
   "bugs": {
     "url": "https://github.com/chris5marsh/makedocs/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/chris5marsh/makedocs/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT",
   "engines": {
     "node": ">= 0.8.0"
   },
@@ -29,7 +24,7 @@
   "dependencies": {
     "cheerio": "^0.18.0",
     "diveSync": "^0.3.0",
-    "handlebars": "^2.0.0",
+    "handlebars": "^4.0.5",
     "handlebars-intl": "^1.0.1",
     "intl": "^0.1.4",
     "js-beautify": "^1.5.4",

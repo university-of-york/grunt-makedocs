@@ -21,6 +21,19 @@ module.exports = function(grunt) {
     var vm = require('vm');
     var fs = require('fs');
     var Handlebars = require('handlebars');
+
+    // For internationalisation
+    var intlData = {
+      locales: ['en-GB']
+    };
+
+    var templates = {};
+
+    // https://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
+    var toType = function(obj) {
+      return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+    };
+
     //var component = require('./component')
     var component = function(type, config) {
 
@@ -93,18 +106,6 @@ module.exports = function(grunt) {
       build: false,
       nav: false
     });
-
-    // For internationalisation
-    var intlData = {
-      locales: ['en-GB']
-    };
-
-    var templates = {};
-
-    // https://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
-    var toType = function(obj) {
-      return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
-    };
 
     function MAKEDOCS(task) {
 

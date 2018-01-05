@@ -1,7 +1,7 @@
 {
   "name": "grunt-makedocs",
   "description": "Make your documentation using Grunt",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "homepage": "https://github.com/chris5marsh/makedocs",
   "author": {
     "name": "Chris Marsh",

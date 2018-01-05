@@ -28,7 +28,7 @@
     "handlebars-intl": "^1.0.1",
     "intl": "^0.1.4",
     "js-beautify": "^1.6.2",
-    "marked": "^0.3.6",
+    "marked": "^0.3.9",
     "yaml-front-matter": "^3.2.3"
   },
   "devDependencies": {

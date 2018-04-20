@@ -222,6 +222,9 @@ module.exports = function(grunt) {
           // Safe eval()
           if (script.children.length !== 0) {
 
+            // Only run scripts that contain "component"
+            if (script.children[0].data.indexOf("component") === -1) { return; }
+
             var ev = vm.runInNewContext(script.children[0].data, { component: component });
 
             if (typeof ev === 'undefined') {

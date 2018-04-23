@@ -124,10 +124,6 @@ module.exports = function(grunt) {
 
       };
 
-      this.htmlEntities = function(str) {
-        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-      };
-
     }
 
     var makedocs = new MAKEDOCS(this);

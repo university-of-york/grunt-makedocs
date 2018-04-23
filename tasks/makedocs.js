@@ -12,14 +12,10 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('makedocs', "Make your documentation using Grunt", function() {
 
-    var beautify = require('js-beautify').html;
     var yfm = require('yaml-front-matter');
     var diveSync = require('diveSync');
-    var cheerio = require('cheerio');
     var marked = require('marked');
     var path = require('path');
-    var vm = require('vm');
-    var fs = require('fs');
     var Handlebars = require('handlebars');
 
     // For internationalisation
@@ -27,70 +23,6 @@ module.exports = function(grunt) {
       locales: ['en-GB']
     };
 
-    var templates = {};
-
-    // https://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
-    var toType = function(obj) {
-      return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
-    };
-
-    //var component = require('./component')
-    var component = function(type, config) {
-
-      var template = templates[type];
-
-      // if config is just a string, it's simple content
-      var configType = toType(config);
-      if (configType === 'string') {
-        config = { "content": config };
-      }
-
-      // if config has an atoms key, compile those and replace atom object with HTML
-      var atomsType = toType(config.atoms);
-      var atomHTML;
-      if (atomsType !== 'undefined') {
-        if (atomsType === 'object') {
-          // Just a single atom
-          var c = Object.keys(config.atoms)[0];
-          var o = config.atoms[c];
-          if (toType(o) === 'object') {
-            o.parentConfig = config;
-          }
-          atomHTML = component(c, o);
-          config.atoms = [atomHTML];
-        } else if (atomsType === 'array') {
-          // Multiple atoms
-          config.atoms.forEach(function(atom, i) {
-            var c, o;
-            var t = toType(atom);
-            if (toType(atom.component) !== 'undefined') {
-              // object passed with "component" key and "options" key
-              c = atom.component;
-              o = atom.options;
-              o.parentConfig = config;
-              atomHTML = component(c, o);
-             } else if (t === 'string') {
-              // Using var that has already been parsed
-              c = atom;
-              o = false;
-              atomHTML = atom;
-             } else {
-              // Shorthand { "component": "options" } object
-              c = Object.keys(atom)[0];
-              o = atom[c];
-              o.parentConfig = config;
-              atomHTML = component(c, o);
-            }
-            config.atoms[i] = atomHTML;
-          });
-        }
-      }
-
-      // compile it with options
-      var html = template(config, { data: { intl: intlData } });
-      return html;
-
-    };
     // Load and use polyfill for ECMA-402.
     if (!global.Intl) {
         global.Intl = require('intl');
@@ -102,8 +34,8 @@ module.exports = function(grunt) {
     var options = this.options({
       layoutsDir: './layouts',
       partialsDir: './partials',
-      componentsDir: './components',
       build: false,
+      postRender: false,
       nav: false
     });
 
@@ -116,7 +48,6 @@ module.exports = function(grunt) {
       this.run = function() {
 
         this.setupPartials();
-        this.setupComponents();
 
         // Sort files into alpha order
         task.files.forEach(function(file) {
@@ -172,16 +103,6 @@ module.exports = function(grunt) {
         });
       };
 
-      // Compile component templates
-      this.setupComponents = function() {
-        var componentsPath = path.resolve(options.componentsDir);
-        diveSync(componentsPath, function(err, file) {
-          var componentName = path.basename(file, path.extname(file));
-          var componentHTML = grunt.file.read(file);
-          templates[componentName] = Handlebars.compile(componentHTML, { noEscape: true });
-        });
-      };
-
       // Create HTML from layout template
       this.makeLayout = function(config) {
 
@@ -190,62 +111,15 @@ module.exports = function(grunt) {
         var layoutHTML = grunt.file.read(layoutPath);
         var template = Handlebars.compile(layoutHTML, { noEscape: true });
         var html = template(config);
-        // Better to precompile scripts into components instead of doing it at runtime
-        this.addComponents(html, function(err, completeHTML) {
+        // Send HTML through postRender function
+        options.isDev = true;
+        options.postRender(html, options, function(err, completeHTML) {
           if (err) {
             grunt.log.warn('Could not add components');
           }
           grunt.file.write(writePath, completeHTML);
           // Only log if verbose
           grunt.verbose.ok("Wrote file to " + writePath);
-        });
-
-      };
-
-      // This is a hacky way to get the JS function calls
-      this.addComponents = function(html, onComplete) {
-
-        var $ = cheerio.load(html, { decodeEntities: false });
-        // Get all the scripts
-        var scripts = $('body script');
-        var htmlEntities = this.htmlEntities;
-        var beautifyOptions = {
-          "indent_size": 2,
-          "indent_char": " "
-        };
-        // For each script, get the individual lines
-        if (scripts.length === 0) {
-          onComplete(null, html);
-        }
-        scripts.each(function(i, script) {
-
-          // Safe eval()
-          if (script.children.length !== 0) {
-
-            // Only run scripts that contain "component"
-            if (script.children[0].data.indexOf("component") === -1) { return; }
-
-            var ev = vm.runInNewContext(script.children[0].data, { component: component });
-
-            if (typeof ev === 'undefined') {
-              return;
-            }
-
-            var scriptContent = beautify(ev, beautifyOptions);
-
-            // If we're doing documentation
-            var docContent = '<pre><code class="language-markup">';
-            docContent+= htmlEntities(scriptContent);
-            docContent+= '\n</code></pre>';
-
-            $(script).after('\n\n'+docContent).after('\n\n'+scriptContent).remove();
-
-          }
-
-          if (i === scripts.length - 1) {
-            onComplete(null, $.html());
-          }
-
         });
 
       };

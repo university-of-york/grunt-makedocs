@@ -113,15 +113,22 @@ module.exports = function(grunt) {
         var html = template(config);
         // Send HTML through postRender function
         options.isDev = true;
-        options.postRender(html, options, function(err, completeHTML) {
-          if (err) {
-            grunt.log.warn('Could not add components');
-          }
-          grunt.file.write(writePath, completeHTML);
+        // Check that postRender is a function
+        if (options.postRender && options.postRender.constructor === Function) {
+          options.postRender(html, options, function(err, completeHTML) {
+            if (err) {
+              grunt.log.warn('Could not add components');
+            }
+            grunt.file.write(writePath, completeHTML);
+            // Only log if verbose
+            grunt.verbose.ok("Wrote file to " + writePath);
+          });
+        } else {
+          // Just write the files
+          grunt.file.write(writePath, html);
           // Only log if verbose
           grunt.verbose.ok("Wrote file to " + writePath);
-        });
-
+        }
       };
 
     }

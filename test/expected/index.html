@@ -44,39 +44,32 @@
 
 <p>This is an example of how the documentation pages would work.</p>
 <p>You can include an atomic component like so:</p>
-<pre><code class="lang-js">&lt;script&gt;
+<pre><code class="language-js">&lt;script&gt;
 component(&quot;button&quot;);
-&lt;/script&gt;
-</code></pre>
+&lt;/script&gt;</code></pre>
 <p>And it will render both the HTML markup and the code to produce it, taken straight from the <em>components/button.html</em> source.</p>
-<button class="btn">Click</button>
-
-<pre><code class="lang-markup">&lt;button class=&quot;btn&quot;&gt;Click&lt;/button&gt;
-</code></pre>
+<p><button class="btn">Click</button></p>
+<pre><code class="language-markup">&lt;button class=&quot;btn&quot;&gt;Click&lt;/button&gt;</code></pre>
 <blockquote>
 <p><strong>N.B. Use the JS function <code>component</code> without the final argument <em>true</em> to add components to real pages (true adds the component a second time as markup)</strong></p>
 </blockquote>
 <p>To add additional information, pass parameters to the component call:</p>
-<pre><code class="lang-js">&lt;script&gt;
+<pre><code class="language-js">&lt;script&gt;
 component(&quot;button&quot;, { &quot;type&quot;: &quot;warning&quot;, &quot;text&quot;: &quot;Help&quot; });
-&lt;/script&gt;
-</code></pre>
+&lt;/script&gt;</code></pre>
 <p>This would render:</p>
-<button class="btn btn-warning">Help</button>
-
-<pre><code class="lang-markup">&lt;button class=&quot;btn btn-warning&quot;&gt;Help&lt;/button&gt;
-</code></pre>
+<p><button class="btn btn-warning">Help</button></p>
+<pre><code class="language-markup">&lt;button class=&quot;btn btn-warning&quot;&gt;Help&lt;/button&gt;</code></pre>
 <p>More complex components (molecules) which combine atoms, will be pre-rendered from passed-through <code>atoms</code> array. The atoms can be an array of simple objects with <code>&quot;component-name&quot;: &quot;options-object&quot;</code>.</p>
-<pre><code class="lang-js">&lt;script&gt;
+<pre><code class="language-js">&lt;script&gt;
 component(&quot;button-group&quot;, { atoms: [
     { &quot;button&quot;: { &quot;text&quot;: &quot;Back&quot; } },
     { &quot;button&quot;: { &quot;type&quot;: &quot;warning&quot;, &quot;text&quot;: &quot;Help&quot;, &quot;icon-after&quot;: &quot;help&quot; } },
     { &quot;button&quot;: { &quot;text&quot;: &quot;Next&quot; } }
 ]});
-&lt;/script&gt;
-</code></pre>
+&lt;/script&gt;</code></pre>
 <p>Alternatively, the atoms array can be an object with a <code>&quot;component&quot;</code> key and an <code>&quot;options&quot;</code> key. This can be useful if you need to pass through several different types of component:</p>
-<pre><code class="lang-js">&lt;script&gt;
+<pre><code class="language-js">&lt;script&gt;
 component(&quot;button-group&quot;, { atoms: [
     {
         &quot;component&quot;: &quot;button&quot;,
@@ -91,8 +84,7 @@ component(&quot;button-group&quot;, { atoms: [
         &quot;options&quot;: { &quot;text&quot;: &quot;Next&quot; }
     }
 ]});
-&lt;/script&gt;
-</code></pre>
+&lt;/script&gt;</code></pre>
 <p>Both these examples would render the same code:</p>
 <div class="btn-group">
     <button class="btn">Back</button>
@@ -100,12 +92,11 @@ component(&quot;button-group&quot;, { atoms: [
     <button class="btn">Next</button>
 </div>
 
-<pre><code class="lang-markup">&lt;div class=&quot;btn-group&quot;&gt;
+<pre><code class="language-markup">&lt;div class=&quot;btn-group&quot;&gt;
     &lt;button class=&quot;btn&quot;&gt;Back&lt;/button&gt;
     &lt;button class=&quot;btn btn-warning&quot;&gt;Help &lt;i class=&quot;icon icon-help&quot;&gt;&lt;/i&gt;&lt;/button&gt;
     &lt;button class=&quot;btn&quot;&gt;Next&lt;/button&gt;
-&lt;/div&gt;
-</code></pre>
+&lt;/div&gt;</code></pre>
 
 
 </div>

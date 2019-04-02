@@ -37,6 +37,7 @@ module.exports = function(grunt) {
           layoutsDir: 'src/layouts',
           partialsDir: 'src/partials',
           componentsDir: 'src/components',
+          postRender: false,
           build: true,
           nav: function(pages) {
             var navPage = "partials/nav.html";

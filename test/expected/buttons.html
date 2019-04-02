@@ -45,61 +45,51 @@
 <h1 id="lots-of-buttons">Lots of Buttons</h1>
 <p>Buttons come in four different types and three different sizes. Usually a <code>button</code> element should be used, although an <code>a</code>, an <code>input[type=button]</code>, an <code>input[type=reset]</code> or an <code>input[type=submit]</code> could be used.</p>
 <p>The simplest is just a plain button:</p>
-
-
-<input type="submit" class="btn" value="Submit">
-
-<pre><code class="language-markup">&lt;input type=&quot;submit&quot; class=&quot;btn&quot; value=&quot;Submit&quot;&gt;
-</code></pre>
+<script>
+component("button", { "text": "Click me" });
+component("button-link", { "text": "Go here", "href": "http://google.com" });
+component("button-input", { "text": "Send" });
+component("button-reset", { "text": "Reset" });
+component("button-submit", { "text": "Submit" });
+</script>
 
 <p>Other types are <em>cancel</em>, <em>primary</em> and <em>highlight</em>:</p>
-
-
-<button class="btn btn-highlight">Or this</button>
-
-<pre><code class="language-markup">&lt;button class=&quot;btn btn-highlight&quot;&gt;Or this&lt;/button&gt;
-</code></pre>
+<script>
+component("button", { "text": "Cancel", "type": "cancel" });
+component("button", { "text": "Click this!", "type": "primary" });
+component("button", { "text": "Or this", "type": "highlight" });
+</script>
 
 <p>You can define the size of the button too:</p>
-
-
-<button class="btn btn-huge">Huge button</button>
-
-<pre><code class="language-markup">&lt;button class=&quot;btn btn-huge&quot;&gt;Huge button&lt;/button&gt;
-</code></pre>
+<script>
+component("button", { "text": "Tiny button", "size": "tiny" });
+component("button", { "text": "Small button", "size": "small" });
+component("button", { "text": "Medium button", "size": "medium" });
+component("button", { "text": "Large button", "size": "large" });
+component("button", { "text": "Huge button", "size": "huge" });
+</script>
 
 <p>It&#39;s also easy to add an icon to a button, either at the front, the end, or both (which doesn&#39;t look good, so don&#39;t do it).</p>
-
-
-<button class="btn"><i class="icon-mobile"></i>Please don't<i class="icon-tick"></i></button>
-
-<pre><code class="language-markup">&lt;button class=&quot;btn&quot;&gt;&lt;i class=&quot;icon-mobile&quot;&gt;&lt;/i&gt;Please don't&lt;i class=&quot;icon-tick&quot;&gt;&lt;/i&gt;&lt;/button&gt;
-</code></pre>
+<script>
+component("button", { "text": "Help", "icon-before": "help" });
+component("button", { "text": "Info", "icon-after": "info" });
+component("button", { "text": "Please don't", "icon-before": "mobile", "icon-after": "tick" });
+</script>
 
 <p>You can join this all together to make a monster button:</p>
-
-
-<button class="btn btn-warning btn-large">Oh gosh<i class="icon-tick"></i></button>
-
-<pre><code class="language-markup">&lt;button class=&quot;btn btn-warning btn-large&quot;&gt;Oh gosh&lt;i class=&quot;icon-tick&quot;&gt;&lt;/i&gt;&lt;/button&gt;
-</code></pre>
+<script>
+component("button", { "text": "Oh gosh", "icon-after": "tick", "size": "large", "type": "warning" });
+</script>
 
 <h2 id="button-groups">Button groups</h2>
 <p>You can combine buttons together in a <code>btn-group</code>. This will join the buttons together seamlessly.</p>
-
-
-<div class="btn-group">
-  <button class="btn">Back</button>
-  <button class="btn btn-warning">Help<i class="icon-help"></i></button>
-  <button class="btn">Next</button>
-</div>
-
-<pre><code class="language-markup">&lt;div class=&quot;btn-group&quot;&gt;
-  &lt;button class=&quot;btn&quot;&gt;Back&lt;/button&gt;
-  &lt;button class=&quot;btn btn-warning&quot;&gt;Help&lt;i class=&quot;icon-help&quot;&gt;&lt;/i&gt;&lt;/button&gt;
-  &lt;button class=&quot;btn&quot;&gt;Next&lt;/button&gt;
-&lt;/div&gt;
-</code></pre>
+<script>
+component("button-group", { atoms: [
+    { "button": { "text": "Back" } },
+    { "button": { "type": "warning", "text": "Help", "icon-after": "help" } },
+    { "button": { "text": "Next" } }
+]});
+</script>
 
 <h2 id="complete-options">Complete options</h2>
 <h3 id="component-names">Component names</h3>

@@ -22,20 +22,20 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "cheerio": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
     "diveSync": "^0.3.0",
-    "handlebars": "^4.0.5",
+    "handlebars": "^4.1.1",
     "handlebars-intl": "^1.0.1",
-    "intl": "^0.1.4",
+    "intl": "^1.2.5",
     "js-beautify": "^1.6.2",
-    "marked": "^0.3.9",
-    "yaml-front-matter": "^3.2.3"
+    "marked": "^0.6.1",
+    "yaml-front-matter": "^4.0.0"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-nodeunit": "^1.0.0",
-    "grunt": "~1.0.1"
+    "grunt": "^1.0.4",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-nodeunit": "^2.0.0"
   },
   "peerDependencies": {
     "grunt": "~1.0.1"

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/chris5marsh/grunt-makedocs.svg?branch=master)](https://travis-ci.org/chris5marsh/grunt-makedocs)
+
 # grunt-makedocs
 
 > Create documentation for your design patterns whilst keeping your components completely separate. It uses Markdown for the page content and Mustache for the templates.

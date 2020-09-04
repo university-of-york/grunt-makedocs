@@ -28,7 +28,7 @@
     "handlebars-intl": "^1.0.1",
     "intl": "^1.2.5",
     "js-beautify": "^1.9.1",
-    "marked": "^0.6.1",
+    "marked": "^0.7.0",
     "npm-check-updates": "^3.1.4",
     "yaml-front-matter": "^4.0.0"
   },
